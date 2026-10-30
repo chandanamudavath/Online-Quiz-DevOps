@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -17,6 +18,24 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 bat 'docker build -t online-quiz:latest .'
+            }
+        }
+
+        stage('Push Image to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-credentials',
+                    usernameVariable: 'DOCKERHUB_USER',
+                    passwordVariable: 'DOCKERHUB_TOKEN'
+                )]) {
+                    bat '''
+                        @echo off
+                        echo %DOCKERHUB_TOKEN%| docker login -u %DOCKERHUB_USER% --password-stdin
+                        docker tag online-quiz:latest %DOCKERHUB_USER%/online-quiz:latest
+                        docker push %DOCKERHUB_USER%/online-quiz:latest
+                        docker logout
+                    '''
+                }
             }
         }
 
