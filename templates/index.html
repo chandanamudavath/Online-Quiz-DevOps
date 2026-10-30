@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+            margin: 0;
+            padding: 30px;
+        }
+        .container {
+            max-width: 750px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+        h1 {
+            text-align: center;
+            color: #1f2937;
+        }
+        .question {
+            margin: 22px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .option {
+            display: block;
+            margin: 10px 0;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            border: 0;
+            padding: 12px 22px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Online Quiz</h1>
+        <form action="/submit" method="POST">
+            {% for question in questions %}
+            {% set q_index = loop.index0 %}
+            <div class="question">
+                <h3>{{ loop.index }}. {{ question.question }}</h3>
+                {% for option in question.options %}
+                <label class="option">
+                    <input type="radio"
+                           name="question{{ q_index }}"
+                           value="{{ option }}"
+                           required>
+                    {{ option }}
+                </label>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            <button type="submit">Submit Quiz</button>
+        </form>
+    </div>
+</body>
+</html>

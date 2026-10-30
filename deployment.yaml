@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: online-quiz-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: online-quiz
+  template:
+    metadata:
+      labels:
+        app: online-quiz
+    spec:
+      containers:
+        - name: online-quiz
+          image: online-quiz:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
