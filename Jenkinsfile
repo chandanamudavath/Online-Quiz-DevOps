@@ -4,13 +4,13 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                bat 'python -m pip install -r requirements-dev.txt'
+                bat '"C:\\Users\\Chandana\\AppData\\Local\\Programs\\Python\\Python310\\python.exe" -m pip install -r requirements-dev.txt'
             }
         }
 
         stage('Run Automated Tests') {
             steps {
-                bat 'python -m pytest tests -v'
+                bat '"C:\\Users\\Chandana\\AppData\\Local\\Programs\\Python\\Python310\\python.exe" -m pytest tests -v'
             }
         }
 
